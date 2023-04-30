@@ -30,4 +30,13 @@ class GalleryViewModel: ViewModel() {
             }
         }
     }
+
+    fun reloadGalleryItems(){
+        _galleryItems.value = emptyList()
+        viewModelScope.launch {
+            val items = photoRepository.fetchPhotos(99)
+            Log.d(TAG, "Items received: $items")
+            _galleryItems.value = items
+        }
+    }
 }
